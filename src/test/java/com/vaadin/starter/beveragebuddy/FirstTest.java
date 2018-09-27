@@ -20,10 +20,10 @@ public class FirstTest extends TestBenchTestCase {
                 withNumberOfConcurrentUsers(1).
                 withRampUpTimeInSeconds(1).
                 withTestName("LoginTest").
-                withPath("/Users/jotatu/Desktop/gatling").
-                withResourcesPath("/Users/jotatu/Desktop/gatling").
+                withPath("C:\\dev\\gatling").
+                withResourcesPath("C:\\dev\\gatling").
                 withStaticResourcesIngnoring().
-                withHeadlessEnabled(true).
+                withHeadlessEnabled(false).
                 build();
         setDriver(driver);
     }
