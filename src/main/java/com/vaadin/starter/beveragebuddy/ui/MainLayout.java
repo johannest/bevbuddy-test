@@ -27,10 +27,8 @@ import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.InitialPageSettings;
 import com.vaadin.flow.server.PageConfigurator;
-import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.starter.beveragebuddy.ui.views.categorieslist.CategoriesList;
 import com.vaadin.starter.beveragebuddy.ui.views.reviewslist.ReviewsList;
-import org.springframework.context.annotation.Scope;
 
 /**
  * The main layout contains the header with the navigation buttons, and the

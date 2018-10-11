@@ -15,8 +15,6 @@
  */
 package com.vaadin.starter.beveragebuddy.ui.views.categorieslist;
 
-import java.util.List;
-
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
@@ -24,7 +22,6 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.Grid.SelectionMode;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.Notification.Position;
@@ -34,15 +31,14 @@ import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.starter.beveragebuddy.backend.Category;
 import com.vaadin.starter.beveragebuddy.backend.CategoryService;
 import com.vaadin.starter.beveragebuddy.backend.Review;
 import com.vaadin.starter.beveragebuddy.backend.ReviewService;
 import com.vaadin.starter.beveragebuddy.ui.MainLayout;
 import com.vaadin.starter.beveragebuddy.ui.common.AbstractEditorDialog;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
+
+import java.util.List;
 
 /**
  * Displays the list of available categories, with a search filter as well as
@@ -56,8 +52,7 @@ public class CategoriesList extends VerticalLayout {
     private final H2 header = new H2("Categories");
     private final Grid<Category> grid = new Grid<>();
 
-    @Autowired
-    CategoryDetail categoryDetail;
+    CategoryDetail categoryDetail = new CategoryDetail();
 
     private final CategoryEditorDialog form = new CategoryEditorDialog(
             this::saveCategory, this::deleteCategory);
