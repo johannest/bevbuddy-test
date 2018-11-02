@@ -277,28 +277,30 @@
             _isEmpty(array) {
                 return array.length == 0;
             }
+
+            ready() {
+                super.ready();
+                console.log("---------------------")
+                //Polymer.Base.async(function() {
+                    console.log("---------------------2")
+                    var datepicker = this.shadowRoot.querySelector('#keyboard-input');
+                    datepicker.set('i18n.parseDate', function(dateString) {
+                        // See if we get exactly 1 match from the month names
+                        var matches = datepicker.i18n.monthNames.filter(function(monthName) {
+                            return monthName.toLowerCase().startsWith(dateString.trim().toLowerCase());
+                        });
+                        dateString = matches.length === 1 ? matches[0] : dateString;
+                        // Parse the date (using a 3rd party library)
+                        const date = Sugar.Date.create(dateString);
+                        return {
+                            day: date.getDate(),
+                            month: date.getMonth(),
+                            year: date.getFullYear()
+                        };
+                    });
+                //});
+            }
         }
         customElements.define(ReviewListElement.is, ReviewListElement);
-
-        window.addEventListener('WebComponentsReady', function() {
-            // Async call needed here for IE11 compatibility.
-            Polymer.Base.async(function() {
-                var datepicker = document.querySelector('vaadin-date-picker#keyboard-input');
-                datepicker.set('i18n.parseDate', function(dateString) {
-                    // See if we get exactly 1 match from the month names
-                    var matches = datepicker.i18n.monthNames.filter(function(monthName) {
-                        return monthName.toLowerCase().startsWith(dateString.trim().toLowerCase());
-                    });
-                    dateString = matches.length === 1 ? matches[0] : dateString;
-                    // Parse the date (using a 3rd party library)
-                    const date = Sugar.Date.create(dateString);
-                    return {
-                        day: date.getDate(),
-                        month: date.getMonth(),
-                        year: date.getFullYear()
-                    };
-                });
-            });
-        });
     </script>
 </dom-module>
