@@ -19,6 +19,7 @@
 <!-- Added Web Component dependencies to make Vaadin Designer preview work -->
 <link rel="import" href="../../../bower_components/vaadin-text-field/src/vaadin-text-field.html">
 <link rel="import" href="../../../bower_components/vaadin-button/src/vaadin-button.html">
+<link rel="import" href="../../../bower_components/vaadin-date-picker/vaadin-date-picker.html">
 <link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../../bower_components/vaadin-lumo-styles/badge.html">
 <!-- TODO Needed to show icons in Vaadin Designer preview mode for now, but can be removed soon -->
@@ -221,47 +222,10 @@
             </vaadin-text-field>
             <vaadin-button id="newReview" class="view-toolbar__button" theme="primary">
                 <iron-icon icon="lumo:plus" slot="prefix"></iron-icon>
-                <span>New review</span>
+                <span>New reviewx</span>
             </vaadin-button>
-            <vaadin-date-picker label="Birthday" id="keyboard-input">
+            <vaadin-date-picker label="Birthday" id="finnish">
             </vaadin-date-picker>
-            <script>
-                window.addEventListener('WebComponentsReady', function() {
-                    // Async call needed here for IE11 compatibility.
-                    Polymer.Base.async(function() {
-                        // Set up the parser library for Finnish locale
-                        Sugar.Date.setLocale('fi');
-                        var datepicker = document.querySelector('vaadin-date-picker#finnish');
-                        datepicker.i18n = {
-                            week: 'viikko',
-                            calendar: 'kalenteri',
-                            clear: 'tyhjennä',
-                            today: 'tänään',
-                            cancel: 'peruuta',
-                            firstDayOfWeek: 1,
-                            monthNames:
-                                'tammikuu_helmikuu_maaliskuu_huhtikuu_toukokuu_kesäkuu_heinäkuu_elokuu_syyskuu_lokakuu_marraskuu_joulukuu'.split('_'),
-                            weekdays: 'sunnuntai_maanantai_tiistai_keskiviikko_torstai_perjantai_lauantai'.split('_'),
-                            weekdaysShort: 'su_ma_ti_ke_to_pe_la'.split('_'),
-                            formatDate: function(date) {
-                                return Sugar.Date.format(date, '{short}');
-                            },
-                            formatTitle: function(monthName, fullYear) {
-                                return monthName + ' ' + fullYear;
-                            },
-                            parseDate: function(dateString) {
-                                console.log(">>>"+dateString);
-                                var matches = datepicker.i18n.monthNames.filter(function(monthName) {
-                                    return monthName.toLowerCase().startsWith(dateString.trim().toLowerCase());
-                                });
-                                dateString = matches.length === 1 ? matches[0] : dateString;
-                                // Parse the date
-                                return Sugar.Date.create(dateString);
-                            }
-                        };
-                    });
-                });
-            </script>
         </div>
 
         <div class="view-container reviews">
@@ -315,6 +279,45 @@
             }
         }
         customElements.define(ReviewListElement.is, ReviewListElement);
-    </script>
 
+        window.addEventListener('WebComponentsReady', function() {
+            console.log("----------------------")
+            // Async call needed here for IE11 compatibility.
+            Polymer.Base.async(function() {
+                console.log("----------------------2")
+                // Set up the parser library for Finnish locale
+                Sugar.Date.setLocale('fi');
+                console.log("----------------------3")
+                var datepicker = document.querySelector('vaadin-date-picker#finnish');
+                console.log("----------------------4")
+                datepicker.i18n = {
+                    week: 'viikko',
+                    calendar: 'kalenteri',
+                    clear: 'tyhjennä',
+                    today: 'tänään',
+                    cancel: 'peruuta',
+                    firstDayOfWeek: 1,
+                    monthNames:
+                        'tammikuu_helmikuu_maaliskuu_huhtikuu_toukokuu_kesäkuu_heinäkuu_elokuu_syyskuu_lokakuu_marraskuu_joulukuu'.split('_'),
+                    weekdays: 'sunnuntai_maanantai_tiistai_keskiviikko_torstai_perjantai_lauantai'.split('_'),
+                    weekdaysShort: 'su_ma_ti_ke_to_pe_la'.split('_'),
+                    formatDate: function(date) {
+                        return Sugar.Date.format(date, '{short}');
+                    },
+                    formatTitle: function(monthName, fullYear) {
+                        return monthName + ' ' + fullYear;
+                    },
+                    parseDate: function(dateString) {
+                        console.log(">>>"+dateString);
+                        var matches = datepicker.i18n.monthNames.filter(function(monthName) {
+                            return monthName.toLowerCase().startsWith(dateString.trim().toLowerCase());
+                        });
+                        dateString = matches.length === 1 ? matches[0] : dateString;
+                        // Parse the date
+                        return Sugar.Date.create(dateString);
+                    }
+                };
+            });
+        });
+    </script>
 </dom-module>
