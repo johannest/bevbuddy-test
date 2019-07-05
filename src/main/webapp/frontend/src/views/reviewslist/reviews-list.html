@@ -19,12 +19,11 @@
 <!-- Added Web Component dependencies to make Vaadin Designer preview work -->
 <link rel="import" href="../../../bower_components/vaadin-text-field/src/vaadin-text-field.html">
 <link rel="import" href="../../../bower_components/vaadin-button/src/vaadin-button.html">
-<link rel="import" href="../../../bower_components/vaadin-date-picker/vaadin-date-picker.html">
 <link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../../bower_components/vaadin-lumo-styles/badge.html">
 <!-- TODO Needed to show icons in Vaadin Designer preview mode for now, but can be removed soon -->
 <link rel="import" href="../../../bower_components/vaadin-lumo-styles/icons.html">
-<script src="sugar.min.js"></script>
+
 
 <!-- Defines the reviews-list element -->
 <dom-module id="reviews-list">
@@ -222,15 +221,12 @@
             </vaadin-text-field>
             <vaadin-button id="newReview" class="view-toolbar__button" theme="primary">
                 <iron-icon icon="lumo:plus" slot="prefix"></iron-icon>
-                <span>New reviewx</span>
+                <span>New review</span>
             </vaadin-button>
-            <vaadin-date-picker label="Birthday" id="keyboard-input">
-            </vaadin-date-picker>
         </div>
 
         <div class="view-container reviews">
             <h2 id="header"></h2>
-
             <template is="dom-if" if="{{!_isEmpty(reviews)}}">
                 <template is="dom-repeat" items="[[reviews]]">
                     <div class="review">
@@ -277,30 +273,8 @@
             _isEmpty(array) {
                 return array.length == 0;
             }
-
-            ready() {
-                super.ready();
-                console.log("---------------------")
-                //Polymer.Base.async(function() {
-                    console.log("---------------------2")
-                    var datepicker = this.shadowRoot.querySelector('#keyboard-input');
-                    datepicker.set('i18n.parseDate', function(dateString) {
-                        // See if we get exactly 1 match from the month names
-                        var matches = datepicker.i18n.monthNames.filter(function(monthName) {
-                            return monthName.toLowerCase().startsWith(dateString.trim().toLowerCase());
-                        });
-                        dateString = matches.length === 1 ? matches[0] : dateString;
-                        // Parse the date (using a 3rd party library)
-                        const date = Sugar.Date.create(dateString);
-                        return {
-                            day: date.getDate(),
-                            month: date.getMonth(),
-                            year: date.getFullYear()
-                        };
-                    });
-                //});
-            }
         }
         customElements.define(ReviewListElement.is, ReviewListElement);
     </script>
+
 </dom-module>

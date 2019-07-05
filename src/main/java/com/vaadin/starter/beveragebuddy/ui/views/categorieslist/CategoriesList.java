@@ -15,8 +15,9 @@
  */
 package com.vaadin.starter.beveragebuddy.ui.views.categorieslist;
 
+import java.util.List;
+
 import com.vaadin.flow.component.AttachEvent;
-import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.Grid.SelectionMode;
@@ -38,8 +39,6 @@ import com.vaadin.starter.beveragebuddy.backend.ReviewService;
 import com.vaadin.starter.beveragebuddy.ui.MainLayout;
 import com.vaadin.starter.beveragebuddy.ui.common.AbstractEditorDialog;
 
-import java.util.List;
-
 /**
  * Displays the list of available categories, with a search filter as well as
  * buttons to add a new category or edit existing ones.
@@ -52,8 +51,6 @@ public class CategoriesList extends VerticalLayout {
     private final H2 header = new H2("Categories");
     private final Grid<Category> grid = new Grid<>();
 
-    CategoryDetail categoryDetail = new CategoryDetail();
-
     private final CategoryEditorDialog form = new CategoryEditorDialog(
             this::saveCategory, this::deleteCategory);
 
@@ -64,14 +61,8 @@ public class CategoriesList extends VerticalLayout {
         addContent();
 
         updateView();
-
-        grid.setItemDetailsRenderer(new ComponentRenderer<>(category -> setupDetail(category)));
     }
 
-    private Component setupDetail(Category c) {
-        categoryDetail.setCategory(c);
-        return categoryDetail;
-    }
     @Override
     protected void onAttach(AttachEvent attachEvent) {
         super.onAttach(attachEvent);
@@ -146,7 +137,7 @@ public class CategoriesList extends VerticalLayout {
     }
 
     private void saveCategory(Category category,
-            AbstractEditorDialog.Operation operation) {
+                              AbstractEditorDialog.Operation operation) {
         CategoryService.getInstance().saveCategory(category);
 
         Notification.show(

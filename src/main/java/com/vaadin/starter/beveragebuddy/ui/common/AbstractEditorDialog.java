@@ -135,6 +135,7 @@ public abstract class AbstractEditorDialog<T extends Serializable>
 
     private void initButtonBar() {
         saveButton.setAutofocus(true);
+        saveButton.setId("save-button");
         saveButton.getElement().setAttribute("theme", "primary");
         cancelButton.addClickListener(e -> close());
         deleteButton.addClickListener(e -> deleteClicked());

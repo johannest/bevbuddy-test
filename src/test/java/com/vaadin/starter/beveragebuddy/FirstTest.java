@@ -1,5 +1,7 @@
 package com.vaadin.starter.beveragebuddy;
 
+import com.vaadin.flow.component.combobox.testbench.ComboBoxElement;
+import com.vaadin.flow.component.textfield.testbench.TextFieldElement;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,8 +22,8 @@ public class FirstTest extends TestBenchTestCase {
                 withNumberOfConcurrentUsers(1).
                 withRampUpTimeInSeconds(1).
                 withTestName("LoginTest").
-                withPath("C:\\dev\\gatling").
-                withResourcesPath("C:\\dev\\gatling").
+                withPath("C:\\dev\\gatling10").
+                withResourcesPath("C:\\dev\\gatling10\\resources").
                 withStaticResourcesIngnoring().
                 withHeadlessEnabled(false).
                 build();
@@ -30,11 +32,15 @@ public class FirstTest extends TestBenchTestCase {
 
     @Test
     public void firstTest() {
-        getDriver().get("http://" + IPAddress.findSiteLocalAddress() + ":8080/");
+        getDriver().get("http://" + IPAddress.findSiteLocalAddress() + ":8090/");
 
         final ReviewsListElement reviewsListElement = $(ReviewsListElement.class).waitForFirst();
         final ButtonElement newReviewButton = reviewsListElement.getNewReviewButton();
         newReviewButton.click();
+
+        $(TextFieldElement.class).first().sendKeys("Mehu");
+        $(ComboBoxElement.class).first().selectByText("Other");
+        $(ButtonElement.class).id("save-button").click();
     }
 
     @After

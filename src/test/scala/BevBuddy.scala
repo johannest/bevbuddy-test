@@ -10,7 +10,7 @@ class BevBuddy extends Simulation {
 	val baseUrl: String = System.getProperty("gatling.baseUrl", "http://localhost:8080")
 
 	val httpProtocol = http
-		.baseURL(baseUrl)
+		.baseUrl(baseUrl)
 		.acceptHeader("*/*")
 		.acceptEncodingHeader("gzip, deflate")
 		.acceptLanguageHeader("en-US,en;q=0.5")
@@ -103,5 +103,5 @@ val initSyncAndClientIds = exec((session) => {
 					
 	val scn = scenario("BevBuddy").repeat(1) {exec(chain_0)}
 
-	setUp(scn.inject(rampUsers(2000) over 180)).protocols(httpProtocol)
+	setUp(scn.inject(rampUsers(1) during 1)).protocols(httpProtocol)
 }
