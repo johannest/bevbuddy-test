@@ -94,26 +94,6 @@ class BevBuddyWS extends Simulation {
             .check(syncIdExtract, clientIdExtract)
         )
     )
-    .pause(2)
-    .exec(
-      ws("Navigate back to Categories")
-        .sendText(atmoMessage(createMessage("""{"type":"navigation","location":"categories","link":1}""")))
-        .await(30 seconds)(
-          ws.checkTextMessage("Categories view's checks")
-            .check(gridIdExtract, searchFieldIdExtract, syncIdExtract, clientIdExtract)
-        )
-    )
-    .pause(1)
-    .exec(
-      ws("Load view 2")
-        .sendText(atmoMessage(createMessage("""{"type":"mSync","node":${searchFieldId},"feature":1,"property":"invalid","value":false},{"type":"publishedEventHandler","node":${gridId},"templateEventMethodName":"setDetailsVisible","templateEventMethodArgs":[null]},{"type":"publishedEventHandler","node":${gridId},"templateEventMethodName":"sortersChanged","templateEventMethodArgs":[[]]},{"type":"publishedEventHandler","node":${gridId},"templateEventMethodName":"confirmUpdate","templateEventMethodArgs":[0]}""")))
-        .await(30 seconds)(
-          ws.checkTextMessage("Sync and client id checks")
-            .check(syncIdExtract, clientIdExtract)
-        )
-      )
-
-    .pause(2)
 
   val scn = scenario("BevBuddyWS").repeat(1) {
     exec(chain_0)
